@@ -1,9 +1,11 @@
-FROM runpod/base:0.6.2-cuda11.8.0
+FROM python:3.10-slim
 
-RUN pip install --no-cache-dir runpod onnxruntime-gpu pillow numpy
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir runpod onnxruntime pillow numpy
 
 RUN mkdir -p /model && \
-    wget -q -O /model/lama_fp32.onnx \
+    curl -L -o /model/lama_fp32.onnx \
     "https://huggingface.co/Carve/LaMa-ONNX/resolve/main/lama_fp32.onnx"
 
 COPY handler.py /handler.py

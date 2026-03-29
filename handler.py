@@ -11,7 +11,7 @@ print("Loading LaMa ONNX model...")
 import onnxruntime as ort
 session = ort.InferenceSession(
     "/model/lama_fp32.onnx",
-    providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
+    providers=['CPUExecutionProvider']
 )
 print(f"Model loaded! Providers: {session.get_providers()}")
 
